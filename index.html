@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meshoo Pictures — Coming Soon (ish) 🎬</title>
+<meta name="description" content="Meshoo Pictures is loading up a fresh reel. Yes We Can 🎬" />
+<link rel="icon" href="logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;700&family=Bungee+Shade&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#4FA49E;
+    --teal-deep:#2C5957;
+    --teal-glow:#6FD7D0;
+    --cream:#FFF8EC;
+    --ink:#1A1A1A;
+    --pop:#FFB347;
+    --pop-2:#F56565;
+    --pop-3:#FFD93D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    min-height:100vh;
+    position:relative;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(79,164,158,.12) 0, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(255,179,71,.15) 0, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255,217,61,.08) 0, transparent 60%);
+  }
+
+  /* ===== FILM STRIP BORDERS ===== */
+  .filmstrip{
+    position:fixed;left:0;right:0;height:42px;
+    background:var(--ink);
+    display:flex;align-items:center;justify-content:space-around;
+    z-index:10;overflow:hidden;
+  }
+  .filmstrip.top{top:0}
+  .filmstrip.bottom{bottom:0}
+  .filmstrip .hole{
+    width:26px;height:20px;background:var(--cream);
+    border-radius:4px;flex-shrink:0;
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,.1);
+  }
+  .filmstrip.top{animation:slide-left 30s linear infinite}
+  .filmstrip.bottom{animation:slide-right 30s linear infinite}
+  @keyframes slide-left{from{background-position:0 0}to{background-position:-200px 0}}
+  @keyframes slide-right{from{background-position:0 0}to{background-position:200px 0}}
+
+  /* ===== FLOATING EMOJIS ===== */
+  .floaters{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .floaters span{
+    position:absolute;font-size:2rem;opacity:.35;
+    animation:float-up 15s linear infinite;
+    filter:saturate(1.4);
+  }
+  @keyframes float-up{
+    0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+    10%{opacity:.4}
+    90%{opacity:.4}
+    100%{transform:translateY(-20vh) rotate(720deg);opacity:0}
+  }
+
+  /* ===== MAIN CONTAINER ===== */
+  main{
+    position:relative;z-index:5;
+    max-width:900px;margin:0 auto;
+    padding:120px 24px 100px;
+    text-align:center;
+  }
+
+  /* ===== LOGO ===== */
+  .logo-wrap{
+    display:inline-block;margin-bottom:30px;
+    animation:bob 4s ease-in-out infinite;
+  }
+  .logo-wrap img{
+    width:400px;height:auto;
+    filter:drop-shadow(6px 6px 0 var(--pop-3));
+    transition:transform .3s;
+  }
+  .logo-wrap:hover img{transform:rotate(-8deg) scale(1.05)}
+  @keyframes bob{
+    0%,100%{transform:translateY(0) rotate(-2deg)}
+    50%{transform:translateY(-12px) rotate(2deg)}
+  }
+
+  /* ===== BRAND ===== */
+  .brand{
+    font-family:'Bungee',sans-serif;
+    font-size:clamp(2.2rem,6vw,4rem);
+    color:var(--teal-deep);
+    letter-spacing:2px;
+    margin-bottom:10px;
+  }
+  .slogan{
+    display:inline-block;
+    background:var(--ink);color:var(--pop-3);
+    padding:6px 18px;border-radius:999px;
+    font-weight:700;font-size:1rem;letter-spacing:3px;
+    transform:rotate(-2deg);
+    margin-bottom:50px;
+    box-shadow:4px 4px 0 var(--teal);
+  }
+
+  /* ===== HEADLINE ===== */
+  .headline{
+    font-family:'Bungee Shade',cursive;
+    font-size:clamp(3rem,11vw,7rem);
+    line-height:.95;color:var(--teal);
+    margin-bottom:20px;
+    position:relative;
+  }
+  .headline .word{display:inline-block;animation:wobble 2.6s ease-in-out infinite}
+  .headline .word:nth-child(2){animation-delay:.3s;color:var(--pop-2)}
+  @keyframes wobble{
+    0%,100%{transform:rotate(-3deg) translateY(0)}
+    50%{transform:rotate(3deg) translateY(-8px)}
+  }
+
+  .sub{
+    font-size:clamp(1rem,2.2vw,1.35rem);
+    color:var(--teal-deep);
+    max-width:560px;margin:0 auto 40px;
+    font-weight:500;line-height:1.5;
+  }
+  .sub strong{background:var(--pop-3);padding:2px 10px;border-radius:6px;color:var(--ink)}
+
+  /* ===== STATUS TICKER ===== */
+  .status-box{
+    background:var(--ink);color:var(--cream);
+    border-radius:20px;padding:22px 28px;
+    margin:0 auto 50px;max-width:600px;
+    border:3px solid var(--teal);
+    box-shadow:8px 8px 0 var(--teal-deep);
+    position:relative;
+  }
+  .status-label{
+    position:absolute;top:-14px;left:24px;
+    background:var(--pop-2);color:white;
+    padding:4px 14px;border-radius:999px;
+    font-size:.75rem;font-weight:700;letter-spacing:2px;
+    transform:rotate(-3deg);
+  }
+  .status-text{
+    font-family:'Space Grotesk',monospace;
+    font-size:1.05rem;font-weight:500;
+    min-height:32px;
+  }
+  .status-text::before{content:"> ";color:var(--teal-glow)}
+  .cursor{display:inline-block;width:10px;height:1.1em;background:var(--teal-glow);vertical-align:middle;margin-left:2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* ===== PROGRESS ===== */
+  .progress-wrap{max-width:600px;margin:0 auto 50px}
+  .progress-label{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:10px;font-weight:700;font-size:.9rem;
+    color:var(--teal-deep);letter-spacing:1px;
+  }
+  .progress-bar{
+    height:28px;background:white;border:3px solid var(--ink);
+    border-radius:999px;overflow:hidden;position:relative;
+    box-shadow:4px 4px 0 var(--ink);
+  }
+  .progress-fill{
+    height:100%;width:99%;
+    background:repeating-linear-gradient(
+      45deg,
+      var(--teal) 0 12px,
+      var(--teal-glow) 12px 24px
+    );
+    background-size:34px 34px;
+    animation:stripes 1.2s linear infinite;
+    border-radius:999px 0 0 999px;
+    position:relative;
+  }
+  @keyframes stripes{to{background-position:-34px 0}}
+  .progress-fill::after{
+    content:"99%";
+    position:absolute;right:10px;top:50%;transform:translateY(-50%);
+    color:white;font-weight:800;font-size:.85rem;
+    text-shadow:1px 1px 0 var(--ink);
+  }
+  .progress-note{
+    font-size:.85rem;color:var(--teal-deep);
+    margin-top:8px;font-style:italic;opacity:.8;
+  }
+
+  /* ===== CLAPPERBOARD CARDS ===== */
+  .cards{
+    display:grid;gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    margin-bottom:50px;
+  }
+  .card{
+    background:white;border:3px solid var(--ink);border-radius:18px;
+    padding:22px;text-align:left;
+    box-shadow:6px 6px 0 var(--teal);
+    transition:all .2s;position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--pop-2)}
+  .card .emoji{font-size:2.2rem;display:block;margin-bottom:8px}
+  .card h3{font-family:'Bungee',sans-serif;font-size:1.1rem;margin-bottom:6px;color:var(--teal-deep);letter-spacing:1px}
+  .card p{font-size:.9rem;line-height:1.5;color:#555}
+
+  /* ===== EMAIL FORM ===== */
+  .signup{
+    background:var(--teal);
+    border-radius:24px;padding:36px 28px;
+    color:white;margin-bottom:30px;
+    border:3px solid var(--ink);
+    box-shadow:8px 8px 0 var(--ink);
+    position:relative;
+  }
+  .signup::before{
+    content:"🎬";position:absolute;top:-24px;left:50%;
+    transform:translateX(-50%);font-size:3rem;
+    background:var(--cream);width:56px;height:56px;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    border:3px solid var(--ink);
+  }
+  .signup h2{
+    font-family:'Bungee',sans-serif;font-size:1.5rem;
+    margin-bottom:8px;margin-top:16px;letter-spacing:1px;
+  }
+  .signup p{margin-bottom:18px;opacity:.95;font-size:.95rem}
+  .signup-form{
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+    max-width:460px;margin:0 auto;
+  }
+  .signup-form input{
+    flex:1;min-width:200px;padding:14px 18px;
+    border:3px solid var(--ink);border-radius:999px;
+    font-family:inherit;font-size:1rem;
+    background:white;color:var(--ink);
+  }
+  .signup-form input:focus{outline:none;box-shadow:0 0 0 3px var(--pop-3)}
+  .signup-form button{
+    padding:14px 26px;border:3px solid var(--ink);
+    background:var(--pop-3);color:var(--ink);
+    font-family:'Bungee',sans-serif;font-size:1rem;
+    border-radius:999px;cursor:pointer;letter-spacing:1px;
+    transition:all .15s;
+  }
+  .signup-form button:hover{background:var(--pop-2);color:white;transform:translateY(-2px)}
+  .signup-msg{
+    margin-top:14px;font-weight:700;font-size:.95rem;
+    min-height:20px;color:var(--pop-3);
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    text-align:center;font-size:.85rem;
+    color:var(--teal-deep);padding-top:20px;
+  }
+  footer a{color:var(--teal-deep);font-weight:700;text-decoration:none;border-bottom:2px dashed var(--teal)}
+  footer a:hover{color:var(--pop-2)}
+  .heart{color:var(--pop-2);animation:beat 1s ease-in-out infinite}
+  @keyframes beat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.3)}
+  }
+
+  /* ===== EASTER EGG ===== */
+  .clap{
+    position:fixed;bottom:70px;right:24px;z-index:20;
+    background:var(--ink);color:white;
+    border:none;border-radius:50%;width:60px;height:60px;
+    font-size:1.8rem;cursor:pointer;
+    box-shadow:4px 4px 0 var(--pop-3);
+    transition:transform .2s;
+  }
+  .clap:hover{transform:rotate(15deg) scale(1.1)}
+  .clap:active{transform:scale(.9)}
+
+  @media (max-width:600px){
+    main{padding:90px 18px 90px}
+    .signup-form input,.signup-form button{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- film strip borders -->
+<div class="filmstrip top" aria-hidden="true">
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+</div>
+
+<div class="filmstrip bottom" aria-hidden="true">
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+</div>
+
+<!-- floating emojis -->
+<div class="floaters" id="floaters" aria-hidden="true"></div>
+
+<main>
+  <div class="logo-wrap">
+    <img src="logo.png" alt="Meshoo Pictures" />
+  </div>
+
+  <h1 class="brand">MESHOO PICTURES</h1>
+  <div class="slogan">YES&nbsp;WE&nbsp;CAN&nbsp;🎬</div>
+
+  <h2 class="headline">
+    <span class="word">COMING</span>
+    <span class="word">SOON!</span>
+  </h2>
+
+  <p class="sub">
+    We're busy loading the film, polishing the lenses, and yelling
+    <strong>"ACTION!"</strong> at our developers. The full site is almost ready
+    for its big premiere.
+  </p>
+
+  <!-- funny status ticker -->
+  <div class="status-box">
+    <div class="status-label">STATUS</div>
+    <div class="status-text" id="status">teaching the server to say cheese…<span class="cursor"></span></div>
+  </div>
+
+  <!-- fake progress bar -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>🎥 RENDERING THE WEBSITE</span>
+      <span id="eta">ETA: any minute now™</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <p class="progress-note">* the last 1% is <em>always</em> the hardest. trust us.</p>
+  </div>
+
+  <!-- cards -->
+  <div class="cards">
+    <div class="card">
+      <span class="emoji">📸</span>
+      <h3>RENT GEAR</h3>
+      <p>Cameras, lenses, lights, tripods, the works. Pro kit without the pro price tag.</p>
+    </div>
+    <div class="card">
+      <span class="emoji">🎞️</span>
+      <h3>BOOK ONLINE</h3>
+      <p>Pick your dates, pick your gear, we handle the rest. (Once the site is up. Obviously.)</p>
+    </div>
+    <div class="card">
+      <span class="emoji">🦈</span>
+      <h3>SHARK REWARDS</h3>
+      <p>Rent enough and you'll swim with the sharks — free orders, loyalty perks, bragging rights.</p>
+    </div>
+  </div>
+
+  <!-- email signup -->
+  <div class="signup">
+    <h2>BE THE FIRST TO KNOW</h2>
+    <p>Drop your email and we'll holler at you the second we go live.</p>
+    <form class="signup-form" onsubmit="return notify(event)">
+      <input type="email" placeholder="your@email.com" required />
+      <button type="submit">NOTIFY ME</button>
+    </form>
+    <div class="signup-msg" id="signup-msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> and too much coffee in Jordan · © <span id="year"></span> Meshoo Pictures</p>
+    <p style="margin-top:8px;opacity:.7">click the clapper, we dare you 👉</p>
+  </footer>
+</main>
+
+<!-- easter egg clapper button -->
+<button class="clap" id="clap" title="ACTION!" aria-label="Clapperboard easter egg">🎬</button>
+
+<script>
+  // === Rotating status messages ===
+  const messages = [
+    "teaching the server to say cheese…",
+    "convincing the pixels to line up straight…",
+    "developer currently on coffee break #47…",
+    "waiting for the film to develop (old school)…",
+    "arguing with CSS about a 1px margin…",
+    "Rafat said 'Yes We Can' 87 times today…",
+    "barcoding every lens cap, twice…",
+    "the clapperboard is loading. take 13, action!",
+    "feeding the hamsters that power our servers…",
+    "almost there… and by almost we mean 99%…",
+    "our designer is picking the perfect shade of teal…",
+    "rendering the hero video (for the 400th time)…"
+  ];
+  let i = 0;
+  const statusEl = document.getElementById("status");
+  function cycleStatus(){
+    i = (i+1) % messages.length;
+    statusEl.innerHTML = messages[i] + '<span class="cursor"></span>';
+  }
+  setInterval(cycleStatus, 3200);
+
+  // === Silly ETA ===
+  const etas = ["any minute now™","soon-ish 🤞","when the vibes align","before the next pyramid is built","ask again later","yes"];
+  let e = 0;
+  setInterval(()=>{
+    e = (e+1) % etas.length;
+    document.getElementById("eta").textContent = "ETA: " + etas[e];
+  }, 4200);
+
+  // === Floating emojis ===
+  const fl = document.getElementById("floaters");
+  const emojis = ["📸","🎬","🎞️","🎥","📷","🦈","⭐","💡","🎟️"];
+  for(let k=0; k<18; k++){
+    const s = document.createElement("span");
+    s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    s.style.left = Math.random()*100 + "%";
+    s.style.animationDuration = (10 + Math.random()*15) + "s";
+    s.style.animationDelay = (-Math.random()*15) + "s";
+    s.style.fontSize = (1.4 + Math.random()*2) + "rem";
+    fl.appendChild(s);
+  }
+
+  // === Fake notify signup ===
+  function notify(ev){
+    ev.preventDefault();
+    const msgs = [
+      "🎬 Got it! We'll roll the credits straight to your inbox.",
+      "📸 Perfect shot! You're on the list.",
+      "🦈 Welcome to the pre-launch crew!",
+      "🎞️ Consider yourself a VIP. No autographs, please."
+    ];
+    document.getElementById("signup-msg").textContent = msgs[Math.floor(Math.random()*msgs.length)];
+    ev.target.reset();
+    return false;
+  }
+
+  // === Clapper easter egg ===
+  const clapSounds = ["ACTION! 🎬","TAKE 2! 🎬","CUT! ✂️","THAT'S A WRAP! 🎉","ROLLING! 📽️","QUIET ON SET! 🤫"];
+  let clapCount = 0;
+  document.getElementById("clap").addEventListener("click", (e)=>{
+    clapCount++;
+    const toast = document.createElement("div");
+    toast.textContent = clapSounds[clapCount % clapSounds.length];
+    toast.style.cssText = `
+      position:fixed;bottom:140px;right:24px;z-index:30;
+      background:#1A1A1A;color:#FFD93D;padding:10px 18px;border-radius:999px;
+      font-family:'Bungee',sans-serif;font-size:.9rem;letter-spacing:1px;
+      animation:pop .8s ease forwards;pointer-events:none;
+      box-shadow:4px 4px 0 #F56565;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 1500);
+
+    if(clapCount === 10){
+      document.body.style.animation = "shake .5s";
+      setTimeout(()=>document.body.style.animation="", 500);
+      alert("🎬 DIRECTOR MODE UNLOCKED!\n\nFine, here's a secret: Meshoo comes from the director Rafat — who also won't stop saying 'Yes We Can'. Now stop clicking and go drink some water.");
+    }
+  });
+
+  // one-off CSS for the pop animation
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes pop{0%{transform:scale(.3);opacity:0}30%{transform:scale(1.15);opacity:1}100%{transform:scale(1);opacity:0;transform:translateY(-20px)}}
+    @keyframes shake{0%,100%{transform:translate(0,0)}25%{transform:translate(-8px,4px)}50%{transform:translate(8px,-4px)}75%{transform:translate(-4px,-8px)}}
+  `;
+  document.head.appendChild(style);
+
+  // Year
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
